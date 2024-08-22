@@ -26,6 +26,10 @@ document.getElementById('soruEklemeFormu').addEventListener('submit', function(e
     sorulariListele();
 });
 
+document.getElementById('soruArama').addEventListener('input', function() {
+    sorulariListele(this.value.toLowerCase());
+});
+
 function sorulariListele() {
     const sorular = JSON.parse(localStorage.getItem('sorular')) || [];
     const soruListesiDiv = document.getElementById('soruListesi');
