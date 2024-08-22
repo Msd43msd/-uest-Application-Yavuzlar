@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ǫuest Application - Admin Paneli</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Admin Paneli</h1>
+    <button id="geriBtn" onclick="window.location.href='index.html'">Geri</button>
+    <div>
+        <h2>Soru Ekleme / Düzenleme</h2>
+        <form id="soruEklemeFormu">
+            <input type="hidden" id="soruid">
+            <label>Soru:</label><br>
+            <input type="text" id="soru" required><br>
+            <label>Zorluk Derecesi:</label><br>
+            <select id="zorluk">
+                <option value="kolay">Kolay</option>
+                <option value="orta">Orta</option>
+                <option value="zor">Zor</option>
+            </select><br>
+            <label>Şıklar:</label><br>
+            <input type="text" id="sik1" required><br>
+            <input type="text" id="sik2" required><br>
+            <input type="text" id="sik3" required><br>
+            <input type="text" id="sik4" required><br>
+            <label>Doğru Şık:</label><br>
+            <input type="text" id="dogruSik" required><br>
+            <button type="submit">Kaydet</button>
+        </form>
+
+        <h2>Eklenen Sorular</h2>
+        <div id="soruListesi"></div>
+    </div>
+</body>
+<script src="admin.js" defer></script>
+</html>
