@@ -30,14 +30,13 @@ document.getElementById('soruArama').addEventListener('input', function() {
     sorulariListele(this.value.toLowerCase());
 });
 
-
-function sorulariListele(aranan = "") {
+function sorulariListele(aramaKelimesi = '') {
     const sorular = JSON.parse(localStorage.getItem('sorular')) || [];
     const soruListesiDiv = document.getElementById('soruListesi');
     soruListesiDiv.innerHTML = '';
 
     sorular.forEach((soru, index) => {
-        if (soru.soru.toLowerCase().includes(aranan.toLowerCase())) {
+        if (soru.soru.toLowerCase().includes(aramaKelimesi)) {
             const soruItem = document.createElement('div');
             soruItem.className = 'soru-item';
             soruItem.innerHTML = `
