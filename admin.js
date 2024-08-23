@@ -15,10 +15,8 @@ document.getElementById('soruEklemeFormu').addEventListener('submit', function(e
     const sorular = JSON.parse(localStorage.getItem('sorular')) || [];
 
     if (soruIndex === "") {
-        // Yeni soru ekleme
         sorular.push({ soru, zorluk, siklar, dogruSik });
     } else {
-        // Mevcut soruyu düzenleme
         sorular[soruIndex] = { soru, zorluk, siklar, dogruSik };
     }
     
