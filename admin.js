@@ -1,7 +1,7 @@
 document.getElementById('soruEklemeFormu').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const soruid = document.getElementById('soruid').value;
+    const soruIndex = document.getElementById('soruIndex').value;
     const soru = document.getElementById('soru').value;
     const zorluk = document.getElementById('zorluk').value;
     const siklar = [
@@ -14,10 +14,12 @@ document.getElementById('soruEklemeFormu').addEventListener('submit', function(e
 
     const sorular = JSON.parse(localStorage.getItem('sorular')) || [];
 
-    if (soruid === "") {
+    if (soruIndex === "") {
+        // Yeni soru ekleme
         sorular.push({ soru, zorluk, siklar, dogruSik });
     } else {
-        sorular[soruid] = { soru, zorluk, siklar, dogruSik };
+        // Mevcut soruyu düzenleme
+        sorular[soruIndex] = { soru, zorluk, siklar, dogruSik };
     }
     
     localStorage.setItem('sorular', JSON.stringify(sorular));
@@ -30,23 +32,26 @@ document.getElementById('soruArama').addEventListener('input', function() {
     sorulariListele(this.value.toLowerCase());
 });
 
-function sorulariListele() {
+
+function sorulariListele(aranan = "") {
     const sorular = JSON.parse(localStorage.getItem('sorular')) || [];
     const soruListesiDiv = document.getElementById('soruListesi');
     soruListesiDiv.innerHTML = '';
 
     sorular.forEach((soru, index) => {
-        const soruItem = document.createElement('div');
-        soruItem.className = 'soru-item';
-        soruItem.innerHTML = `
-            <p><strong>Soru:</strong> ${soru.soru}</p>
-            <p><strong>Zorluk:</strong> ${soru.zorluk}</p>
-            <p><strong>Şıklar:</strong> ${soru.siklar.join(', ')}</p>
-            <p><strong>Doğru Şık:</strong> ${soru.dogruSik}</p>
-            <button class="duzenle" onclick="soruDuzenle(${index})">Düzenle</button>
-            <button onclick="soruSil(${index})">Sil</button>
-        `;
-        soruListesiDiv.appendChild(soruItem);
+        if (soru.soru.toLowerCase().includes(aranan.toLowerCase())) {
+            const soruItem = document.createElement('div');
+            soruItem.className = 'soru-item';
+            soruItem.innerHTML = `
+                <p><strong>Soru:</strong> ${soru.soru}</p>
+                <p><strong>Zorluk:</strong> ${soru.zorluk}</p>
+                <p><strong>Şıklar:</strong> ${soru.siklar.join(', ')}</p>
+                <p><strong>Doğru Şık:</strong> ${soru.dogruSik}</p>
+                <button onclick="soruDuzenle(${index})">Düzenle</button>
+                <button onclick="soruSil(${index})">Sil</button>
+            `;
+            soruListesiDiv.appendChild(soruItem);
+        }
     });
 }
 
@@ -54,7 +59,7 @@ function soruDuzenle(index) {
     const sorular = JSON.parse(localStorage.getItem('sorular')) || [];
     const soru = sorular[index];
 
-    document.getElementById('soruid').value = index;
+    document.getElementById('soruIndex').value = index;
     document.getElementById('soru').value = soru.soru;
     document.getElementById('zorluk').value = soru.zorluk;
     document.getElementById('sik1').value = soru.siklar[0];
